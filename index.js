@@ -12,7 +12,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.tjc9clz.mongodb.net/?retryWrites=true&w=majority`;
+const uri = process.env.MONGODB_URI;
 // console.log(uri)
 
 const client = new MongoClient(uri, {
@@ -32,12 +32,7 @@ async function run() {
     res.send(result);
   });
   app.get("/post", async (req, res) => {
-    // let query = {};
-    // if (req.query.email) {
-    //   query = {
-    //     email: req.query.email,
-    //   };
-    // }
+   
 
     const query = {};
     const cursor = addPostCollection.find(query).sort({ time: -1 });
